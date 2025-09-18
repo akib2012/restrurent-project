@@ -1,5 +1,33 @@
 console.log("connected bhiya");
 
+/* show moadal in the ui */
+
+function  carddetails(foo) {
+    // console.log(foo)
+    const my_modal_5 = document.getElementById("my_modal_5");
+    const newModal = document.createElement("div");
+    my_modal_5.innerHTML = "";
+    newModal.innerHTML = `<div  class="modal-box">
+            <h3 class="text-lg font-bold">${foo.title}</h3>
+            <img class="w-20 h-20 rounded-2xl" src="${foo.foodImg}" alt="">
+            <p class="py-4">${foo.category}</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>`;
+    my_modal_5.showModal();
+    my_modal_5.appendChild(newModal);
+    
+    
+    
+
+}
+
+
+
+
 
 /* here categori item added and disply the ui */
 
@@ -62,7 +90,7 @@ const showRandomeFoods = (foodss) => {
     foodss.forEach(food => {
         const newFoodsSections = document.createElement("div");
         // newFoodsSections.innerHTML = "";
-        newFoodsSections.innerHTML = `<div class="p-5 m-4 bg-white flex gap-3 shadow rounded-xl">
+        newFoodsSections.innerHTML = `<div onclick='carddetails(${JSON.stringify(food)})' class="p-5 m-4 bg-white flex gap-3 shadow rounded-xl">
                     <div class="img flex-1">
                         <img src="${food.foodImg}" alt=""
                             class="w-[160px] rounded-xl h-[160px] object-cover" />
@@ -80,7 +108,7 @@ const showRandomeFoods = (foodss) => {
                             </h2>
                         </div>
 
-                        <button class="btn btn-warning">
+                        <button onclick='addtoCadr(${JSON.stringify(food)})' class="btn btn-warning">
                             <i class="fa-solid fa-square-plus"></i>
                             Add This Item
                         </button>
@@ -88,6 +116,7 @@ const showRandomeFoods = (foodss) => {
                 </div>`;
         foodsSections.appendChild(newFoodsSections);
     });
+    
 }
 
 
@@ -95,7 +124,7 @@ const showRandomeFoods = (foodss) => {
 
 
 
-/* her load and display the food as the cetagoris name  */
+/* per  load and display the food as the cetagoris name  */
 
 const loadperticularData = (id) => {
     const uri = `https://taxi-kitchen-api.vercel.app/api/v1/categories/${id}`
@@ -104,13 +133,15 @@ const loadperticularData = (id) => {
         .then(data => displayategoriFood(data.foods))
 }
 
+
+
 const displayategoriFood = (fooids) => {
     const foodsSections = document.getElementById("food-container");
     foodsSections.innerHTML = "";
     fooids.forEach(food => {
         const newFoodsSections = document.createElement("div");
         // newFoodsSections.innerHTML = "";
-        newFoodsSections.innerHTML = `<div class="p-5 m-4 bg-white flex gap-3 shadow rounded-xl ">
+        newFoodsSections.innerHTML = `<div onclick='carddetails(${JSON.stringify(food)})' class="p-5 m-4 bg-white flex gap-3 shadow rounded-xl ">
                     <div class="img flex-1">
                         <img src="${food.foodImg}" alt=""
                             class="w-[160px] rounded-xl h-[160px] object-cover" />
@@ -128,7 +159,7 @@ const displayategoriFood = (fooids) => {
                             </h2>
                         </div>
 
-                        <button class="btn btn-warning">
+                        <button onclick='addtoCadr(${JSON.stringify(food)})' class="btn btn-warning">
                             <i class="fa-solid fa-square-plus"></i>
                             Add This Item
                         </button>
@@ -136,11 +167,62 @@ const displayategoriFood = (fooids) => {
                 </div>`;
         foodsSections.appendChild(newFoodsSections);
     });
-
-
-
-
+    
 }
+
+
+
+/* ******  show the price menu to the add to card cards        ********** */
+
+const addtoCadr = (pricemenu) => {
+    const oldCard = document.getElementById("cart-container");
+    const newCard = document.createElement("div");
+    newCard.innerHTML = `<div onclick="carddetails()" id="deletBtn" class="p-1 bg-white flex gap-3 shadow rounded-xl relative mb-4 dltbtn">
+                    <div class="img">
+                        <img src="${pricemenu.foodImg}" alt=""
+                            class="w-[50px] rounded-xl h-[50px] object-cover" />
+                    </div>
+                    <div class="flex-1">
+                        <h1 class="text-xs font-bold">
+                            ${pricemenu.title}
+                        </h1>
+
+                        <div class="">
+                            <h2 class="text-yellow-600 font-semibold">
+                                $ <span id="fPrice" class="price">${pricemenu.price}</span> BDT
+                            </h2>
+                        </div>
+                    </div>
+                    <div
+                         id="dlt"  class="w-6 h-6 flex justify-center items-center bg-red-600 rounded-full absolute -top-1 -right-1 text-white" >
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>`;
+    oldCard.appendChild(newCard);
+
+
+    let totalPrice = document.getElementById("ttprice").innerText;
+
+    // let foodPrice = `${pricemenu.price}`;  /// here should be varibe let cause this variable should be changabe in every time!!
+    let foodPrice = document.getElementById("fPrice").innerText;
+
+    let fianlPrice = Number(totalPrice) + Number(foodPrice);
+    document.getElementById("ttprice").innerText = fianlPrice;
+
+
+
+    document.getElementById("dlt").addEventListener("click",
+        function () {
+            document.getElementById("deletBtn").innerHTML = "";
+        }
+    )
+}
+
+
+
+
+
+/* show card detils in a modal */
 
 
 
