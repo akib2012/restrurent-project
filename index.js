@@ -9,7 +9,7 @@ function  carddetails(foo) {
     my_modal_5.innerHTML = "";
     newModal.innerHTML = `<div  class="modal-box">
             <h3 class="text-lg font-bold">${foo.title}</h3>
-            <img class="w-20 h-20 rounded-2xl" src="${foo.foodImg}" alt="">
+            <img class="w-40 h-40 rounded-2xl" src="${foo.foodImg}" alt="">
             <p class="py-4">${foo.category}</p>
             <div class="modal-action">
                 <form method="dialog">
@@ -90,7 +90,7 @@ const showRandomeFoods = (foodss) => {
     foodss.forEach(food => {
         const newFoodsSections = document.createElement("div");
         // newFoodsSections.innerHTML = "";
-        newFoodsSections.innerHTML = `<div onclick='carddetails(${JSON.stringify(food)})' class="p-5 m-4 bg-white flex gap-3 shadow rounded-xl">
+        newFoodsSections.innerHTML = `<div  class="p-5 m-4 bg-white flex gap-3 shadow rounded-xl">
                     <div class="img flex-1">
                         <img src="${food.foodImg}" alt=""
                             class="w-[160px] rounded-xl h-[160px] object-cover" />
@@ -100,7 +100,7 @@ const showRandomeFoods = (foodss) => {
                             ${food.title}
                         </h1>
 
-                        <div class="badge badge-warning">${food.category}</div>
+                        <div onclick='carddetails(${JSON.stringify(food)})' class="badge badge-warning">${food.category}</div>
 
                         <div class="divider divider-end">
                             <h2 class="text-yellow-600 font-semibold">
@@ -141,7 +141,7 @@ const displayategoriFood = (fooids) => {
     fooids.forEach(food => {
         const newFoodsSections = document.createElement("div");
         // newFoodsSections.innerHTML = "";
-        newFoodsSections.innerHTML = `<div onclick='carddetails(${JSON.stringify(food)})' class="p-5 m-4 bg-white flex gap-3 shadow rounded-xl ">
+        newFoodsSections.innerHTML = `<div  class="p-5 m-4 bg-white flex gap-3 shadow rounded-xl ">
                     <div class="img flex-1">
                         <img src="${food.foodImg}" alt=""
                             class="w-[160px] rounded-xl h-[160px] object-cover" />
@@ -151,7 +151,7 @@ const displayategoriFood = (fooids) => {
                             ${food.title}
                         </h1>
 
-                        <div class="badge badge-warning">${food.category}</div>
+                        <div onclick='carddetails(${JSON.stringify(food)})' class="badge badge-warning">${food.category}</div>
 
                         <div class="divider divider-end">
                             <h2 class="text-yellow-600 font-semibold">
